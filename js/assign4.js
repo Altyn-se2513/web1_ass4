@@ -1,6 +1,6 @@
-/* ============================================================
+/* 
    THEME TOGGLE
-   ============================================================ */
+    */
 (function () {
   const key = 'bc_theme';
   const root = document.documentElement;
@@ -27,9 +27,9 @@
   }
 })();
 
-/* ============================================================
+/* 
    TASK 1 — Form Validation (Contact form)
-   ============================================================ */
+    */
 (function () {
   const form = document.getElementById('contact-form');
   const errBox = document.getElementById('contact-error');
@@ -62,9 +62,7 @@
   });
 })();
 
-/* ============================================================
-   TASK 2 — Accordion
-   ============================================================ */
+/* Accordion for FAQ */
 (function () {
   const headers = document.querySelectorAll('.accordion-header');
   if (!headers.length) return;
@@ -98,9 +96,9 @@
   });
 })();
 
-/* ============================================================
+/* 
    TASK 3 — Popup
-   ============================================================ */
+*/
 (function () {
   const popup = document.getElementById('popup-overlay');
   const openBtn = document.getElementById('open-popup');
@@ -149,18 +147,17 @@
 
 })();
 
-/* ============================================================
+/* 
    TASK 4 — Change Background Color 
-   ============================================================ */
+    */
 (function () {
   const lightPalette = [
-    '#eef5fc', '#e6f0fa', '#e8f1fb',
-    '#eaf3ff', '#f0f6ff', '#eef7f2'
+    '#eef5fc', '#ee2ed5', '#fcf930',
+    '#2279ea', '#de2d2d', '#28d074'
   ];
   const darkPalette = [
-    '#0a1a2e', '#0f2138', '#142740',
-    '#0e1e33', '#13253d', '#0c2a3a',
-    '#1a2a44', '#0f1c30'
+    '#728296', '#a1369d', '#a2a02c',
+    '#14335d', '#964b4b', '#36743f'
   ];
   let idx = 0;
   const btn = document.getElementById('bg-color-btn');
@@ -170,14 +167,14 @@
     const theme = document.documentElement.getAttribute('data-theme') || 'light';
     const colors = theme === 'dark' ? darkPalette : lightPalette;
     idx = (idx + 1) % colors.length;
-    // Меняем CSS-переменную — фон обновится на всей странице
+    // Set the CSS variable for background color
     document.documentElement.style.setProperty('--bg-page', colors[idx]);
   });
 })();
 
-/* ============================================================
+/* 
    TASK 5 — Date & Time
-   ============================================================ */
+    */
 (function () {
   function update() {
     const el = document.getElementById('datetime');
@@ -193,9 +190,9 @@
   setInterval(update, 1000);
 })();
 
-/* ============================================================
+/* 
    EXTRA — Monthly / Yearly price switch
-   ============================================================ */
+    */
 (function () {
   const yearly = document.getElementById('billing-yearly');
   if (!yearly) return;
