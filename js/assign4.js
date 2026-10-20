@@ -1,6 +1,6 @@
 /* 
    THEME TOGGLE
-    */
+*/
 (function () {
   const key = 'bc_theme';
   const root = document.documentElement;
@@ -19,9 +19,7 @@
       const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       root.setAttribute('data-theme', next);
       localStorage.setItem(key, next);
-
       root.style.removeProperty('--bg-page');
-
       updateButton();
     });
   }
@@ -29,23 +27,33 @@
 
 /* 
    TASK 1 — Form Validation (Contact form)
-    */
+*/
 (function () {
   const form = document.getElementById('contact-form');
   const errBox = document.getElementById('contact-error');
   if (!form || !errBox) return;
+
+  const nameRegex = /^[A-Za-zА-Яа-яЁё][A-Za-zА-Яа-яЁё\s'-]{1,49}$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
     const message = document.getElementById('message').value.trim();
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const errors = [];
 
-    if (!name) errors.push('Name is required.');
+    if (!name) {
+      errors.push('Name is required.');
+    } else if (/\d/.test(name)) {
+      errors.push('Name cannot contain digits.');
+    } else if (!nameRegex.test(name)) {
+      errors.push('Name must contain only letters (2–50 characters), no special symbols.');
+    }
+
     if (!email) errors.push('Email is required.');
     else if (!emailRegex.test(email)) errors.push('Please enter a valid email address.');
+
     if (!message) errors.push('Message is required.');
     else if (message.length < 10) errors.push('Message must be at least 10 characters.');
 
@@ -60,6 +68,13 @@
     alert('Demo form — your message was not actually sent.');
     form.reset();
   });
+
+  const nameInput = document.getElementById('name');
+  if (nameInput) {
+    nameInput.addEventListener('input', () => {
+      nameInput.value = nameInput.value.replace(/[\d]/g, '');
+    });
+  }
 })();
 
 /* Accordion for FAQ */
@@ -78,7 +93,7 @@
           other.classList.remove('active');
           const c = other.querySelector('.accordion-content');
           if (c) c.style.maxHeight = null;
-          const b = other.querySelector('.accordion-header');   
+          const b = other.querySelector('.accordion-header');
           if (b) b.setAttribute('aria-expanded', 'false');
         }
       });
@@ -127,29 +142,28 @@
   }
 
   if (popupForm) {
-  popupForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = document.getElementById('popup-email').value.trim();
-    const err = document.getElementById('popup-error');
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      err.textContent = email
-        ? 'Please enter a valid email address.'
-        : 'Email is required.';
-      err.hidden = false;
-      return;
-    }
-    err.hidden = true;
-    alert('Demo — subscription was not actually created.');
-    popupForm.reset();
-    closePopup();
-  });
-}
-
+    popupForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('popup-email').value.trim();
+      const err = document.getElementById('popup-error');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        err.textContent = email
+          ? 'Please enter a valid email address.'
+          : 'Email is required.';
+        err.hidden = false;
+        return;
+      }
+      err.hidden = true;
+      alert('Demo — subscription was not actually created.');
+      popupForm.reset();
+      closePopup();
+    });
+  }
 })();
 
 /* 
    TASK 4 — Change Background Color 
-    */
+*/
 (function () {
   const lightPalette = [
     '#eef5fc', '#ee2ed5', '#fcf930',
@@ -167,21 +181,20 @@
     const theme = document.documentElement.getAttribute('data-theme') || 'light';
     const colors = theme === 'dark' ? darkPalette : lightPalette;
     idx = (idx + 1) % colors.length;
-    // Set the CSS variable for background color
     document.documentElement.style.setProperty('--bg-page', colors[idx]);
   });
 })();
 
 /* 
    TASK 5 — Date & Time
-    */
+*/
 (function () {
   function update() {
     const el = document.getElementById('datetime');
     if (!el) return;
     const now = new Date();
     const options = {
-      year: 'numeric', month: 'long', day: 'numeric',
+      year: 'numeric', month: 'long', day: 'numeric', weekday: 'long',
       hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true
     };
     el.textContent = now.toLocaleString('en-US', options);
@@ -192,7 +205,7 @@
 
 /* 
    EXTRA — Monthly / Yearly price switch
-    */
+*/
 (function () {
   const yearly = document.getElementById('billing-yearly');
   if (!yearly) return;
