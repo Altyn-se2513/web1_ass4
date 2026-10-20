@@ -8,9 +8,9 @@ import {
   updateProfile
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-/* =========================================================
+/* 
    REGISTER
-   ========================================================= */
+    */
 (function () {
   const form = document.getElementById('register-form');
   if (!form) return;
@@ -82,9 +82,9 @@ import {
   });
 })();
 
-/* =========================================================
+/* 
    LOGIN
-   ========================================================= */
+    */
 (function () {
   const form = document.getElementById('login-form');
   if (!form) return;
@@ -108,9 +108,9 @@ import {
   });
 })();
 
-/* =========================================================
+/* 
    FORGOT PASSWORD
-   ========================================================= */
+    */
 (function () {
   const link = document.getElementById('forgot-password-link');
   if (!link) return;
@@ -133,9 +133,9 @@ import {
   });
 })();
 
-/* =========================================================
+/* 
    LOGOUT
-   ========================================================= */
+    */
 (function () {
   const btn = document.getElementById('logout-btn');
   if (!btn) return;
