@@ -26,7 +26,6 @@
     });
   }
 })();
-
 /* 
    TASK 1 — Form Validation (Contact form)
 */
@@ -34,9 +33,7 @@
   const form = document.getElementById('contact-form');
   const errBox = document.getElementById('contact-error');
   if (!form || !errBox) return;
-
-  // Имя: минимум 2 символа, только буквы (лат/кир), пробел, дефис, апостроф.
-  // Цифры и спецсимволы запрещены.
+   
   const nameRegex = /^[A-Za-zА-Яа-яЁё][A-Za-zА-Яа-яЁё\s'-]{1,49}$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -47,10 +44,13 @@
     const message = document.getElementById('message').value.trim();
     const errors = [];
 
-    if (!name) {
+     if (!name) {
       errors.push('Name is required.');
+    } else if (/\d/.test(name)) {
+      // Явно отлавливаем цифры — ivan2, qwerty45ivan и т.п.
+      errors.push('Name cannot contain digits.');
     } else if (!nameRegex.test(name)) {
-      errors.push('Name must contain only letters (2–50 characters), no digits or special symbols.');
+      errors.push('Name must contain only letters (2–50 characters), no special symbols.');
     }
 
     if (!email) errors.push('Email is required.');
@@ -70,6 +70,13 @@
     alert('Demo form — your message was not actually sent.');
     form.reset();
   });
+
+  const nameInput = document.getElementById('name');
+  if (nameInput) {
+    nameInput.addEventListener('input', () => {
+      nameInput.value = nameInput.value.replace(/[\d]/g, '');
+    });
+  }
 })();
 
 /* Accordion for FAQ */
