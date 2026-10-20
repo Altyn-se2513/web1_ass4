@@ -122,9 +122,7 @@
 
   if (popup) {
     popup.addEventListener('click', (e) => { if (e.target === popup) closePopup(); });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !popup.hidden) closePopup();
-    });
+
   }
 
   if (popupForm) {
